@@ -14,7 +14,7 @@ public class UserDaoJDBCImpl implements UserDao {   //класс реализу�
     }
 
     public void createUsersTable() {                                    //создаю таблицу 'user' с параметрами для БД.
-        String sqlCreatingTable = "CREATE TABLE IF NOT EXISTS mydbtest.users " +
+        String sqlCreatingTable = "CREATE TABLE IF NOT EXISTS users " +
                 "(id INT PRIMARY KEY AUTO_INCREMENT, " +
                 "name VARCHAR(45), " +
                 "lastName VARCHAR(45), " +
@@ -28,7 +28,7 @@ public class UserDaoJDBCImpl implements UserDao {   //класс реализу�
     }
 
     public void dropUsersTable() {                                                  //Удалю саму таблицу из БД
-        String sqlDeleteTable = "DROP TABLE IF EXISTS mydbtest.users";
+        String sqlDeleteTable = "DROP TABLE IF EXISTS users";
         try (Statement statement = connection.createStatement()){
             statement.executeUpdate(sqlDeleteTable);
             System.out.println("Этап удаления таблицы...");
@@ -38,7 +38,7 @@ public class UserDaoJDBCImpl implements UserDao {   //класс реализу�
     }
 
     public void saveUser(String name, String lastName, byte age) {                                      //create newUser
-        String sqlInputUser = "INSERT INTO mydbtest.users (name, lastName, age) VALUES (?, ?, ?)";
+        String sqlInputUser = "INSERT INTO users (name, lastName, age) VALUES (?, ?, ?)";
         try(PreparedStatement preparedStatement = connection.prepareStatement(sqlInputUser)) {
             preparedStatement.setString(1,name);
             preparedStatement.setString(2,lastName);
@@ -51,7 +51,7 @@ public class UserDaoJDBCImpl implements UserDao {   //класс реализу�
     }
 
     public void removeUserById(long id) {
-        String sqlDeleteThisUser = "DELETE FROM mydbtest.users WHERE id = ?";
+        String sqlDeleteThisUser = "DELETE FROM users WHERE id = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sqlDeleteThisUser)){
             preparedStatement.setLong(1,id);
             preparedStatement.executeUpdate();
@@ -63,7 +63,7 @@ public class UserDaoJDBCImpl implements UserDao {   //класс реализу�
 
     public List<User> getAllUsers() {
         List<User> users = new ArrayList<>();
-        String sqlGetAllUsers = "SELECT * FROM mydbtest.users";
+        String sqlGetAllUsers = "SELECT * FROM users";
         try(Statement statement = connection.createStatement()) {
             ResultSet resultSet = statement.executeQuery(sqlGetAllUsers);
             while(resultSet.next()) {
@@ -82,7 +82,7 @@ public class UserDaoJDBCImpl implements UserDao {   //класс реализу�
     }
 
     public void cleanUsersTable() {                                         // Удалю список Юзеров из Таблицы(не удаляя её саму)
-        String sqlDeleteTable = "DELETE FROM mydbtest.users";
+        String sqlDeleteTable = "DELETE FROM users";
         try (Statement statement = connection.createStatement()){
             statement.executeUpdate(sqlDeleteTable);
             System.out.println("Этап удаления всей таблицы полностью...");
