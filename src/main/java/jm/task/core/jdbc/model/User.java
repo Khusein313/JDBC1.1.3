@@ -1,10 +1,9 @@
 package jm.task.core.jdbc.model;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
-@Table
+@Entity // ан-я означает что этот класс будет отображён в виде таблицы в БД.
+@Table (name = "user") // ан-я привязывает класс к таблице указанной в БД (если имена отличаются но надо вложить туда)
 public class User {
     @Override
     public String toString() {
@@ -15,20 +14,21 @@ public class User {
                 ", age=" + age +
                 '}';
     }
-
-    @Id
+    @Column(name = "id") //ан-я указывает на то к какому столцу таблицы мы привязываем поле класса (name,id,age т.д)
+    @Id //ан-я указывает на то что это данное поле и стобец таблицы являются Primary Key
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //ан-я для генирирования уникальных значений по опред-му алгоритму
     private Long id;
 
-    @Column
+    @Column(name = "name")
     private String name;
 
-    @Column
+    @Column(name = "lastName")
     private String lastName;
 
-    @Column
+    @Column(name = "age")
     private Byte age;
 
-    public User() {
+    public User() {     //по правилам обязан быть один пустой конструктор(даже если есть готовый заполненый)
 
     }
 

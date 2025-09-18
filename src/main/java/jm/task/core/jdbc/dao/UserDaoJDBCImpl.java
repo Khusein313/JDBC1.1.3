@@ -85,7 +85,7 @@ public class UserDaoJDBCImpl implements UserDao {   //класс реализу�
         String sqlDeleteTable = "DELETE FROM users";
         try (Statement statement = connection.createStatement()){
             statement.executeUpdate(sqlDeleteTable);
-            System.out.println("Этап удаления всей таблицы полностью...");
+            System.out.println("Этап удаления всех объектов из таблицы...");
         }catch (SQLException e) {
             e.printStackTrace();
         }
